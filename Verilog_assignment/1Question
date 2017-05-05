@@ -1,0 +1,69 @@
+Assignmnet 
+Objective: In this lab assignment, you will design a simple processor involving an ALU and a register file.
+
+Problems:
+
+1. 4-bit ALU (2 + 1 + 2 + 1 + 1 = 7 points)
+	(a) Write a Verilog module alu4 to perform arithmetic and logical operations on two 4-bit binary numbers.
+	The ALU should support the following operations: and, or, add and sub. It should produce the result of
+	the arithmetic or logical operation as output. Moreover, it should also output three flags CF, ZF and SF
+	to indicate if there is carry generated, if the result is zero and if the result is negative, respectively. For
+	arithmetic operations, assume that the inputs are signed numbers.
+	(b) Write a Verilog Test Fixture containing at least four different test cases. Use the ISim simulator to
+	simulate the Verilog module.
+	(c) Update the Verilog module to incorporate the input mechanism using slide switches and push-button
+	switches. Three different push buttons can be used to input the operation (using two slide switches) and the
+	two operands (using four slide switches in each case).
+	(d) Write a constraint file to use sliding switches and three push buttons to input the two bit opcode and
+	two 4-bit binary numbers and display the result as a hexadecimal character on the LCD Display. Use three
+	of the LEDs to indicate the CF, ZF and SF flags.
+	(e) Synthesize and implement your Verilog module to generate a configuration file and download the
+	configuration file to the FPGA kit. Move the sliding switches to on or off position to generate different 2-bit
+	numbers for operations and 4-bit binary numbers for operands. Use the push buttons to capture the inputs.
+	Check the LCD screen and LED output to ensure that your ALU is operating correctly.
+
+2. 	Register File (2 + 2 + 1 + 1 = 6 points)
+	(a) Write a Verilog module regfile to implement a register file that contains 16 registers each of size 4
+	bits. The register file module should have six inputs: the clock, two read registers (RR1 and RR2), one write
+	register (WR), one write data (WData) port and one write enable (WEnable) port. The module should have
+	two output ports providing the data stored in the two registers given in the two read register input ports.
+	The data provided in the write data port is written to the write register on the positive edge of the clock
+	when the write enable signal is on.
+	(b) Update the Verilog module to incorporate the input mechanism using slide switches and push-buttons.
+	The four 4-bit inputs RR1, RR2, WR and WData can be obtained using the four slide switches and fourth
+	push buttons, one for each input. The write enable signal can be generated using the Rotary Push-Button
+	Switch (See page 17 of Spartan-3E FPGA Starter Kit Board User Guide for details).
+	(c) Write a constraint file to use the sliding switches and four push buttons to input the 4-bit read
+	registers, 4-bit write register and the 4-bit write data. Display the results in two read data ports using eight
+	LEDs.
+	(d) Synthesize and implement your Verilog module to generate a configuration file and download the
+	configuration file to the FPGA kit. Move the sliding switches to on or off position to generate different 4-bit
+	binary numbers and use the push buttons to capture the register numbers and write data. Check the LED
+	outputs to ensure that the data are written to the registers and read from the registers correctly.
+
+3. A simple processor (3 + 2 + 1 + 1 = 7 points)
+	(a) Write a Verilog module processor that combines modules alu4 and regfile to design a simple processor.
+	The processor has two modes: In one mode, it accepts data to be written to a given register in the register
+	file and in another mode it performs arithmetic and logical operations on the values in the two registers
+	given by the user as input.
+	The processor accepts a 3-bit opcode, two 4-bits inputs and a one bit input used as register write enable
+	signal. If the opcode is 100 then the processor works in the register write mode. In that case one of the 4-bit
+	inputs works as the destination register to be written, and the other 4-bit input is the data to be written to
+	that register.
+	If the opcode is 000, 001, 010 or 011, the processor should perform and, or, add and subtract operations
+	respectively with the help of the arithmetic logic unit. In this case the two 4-bit inputs provide the two
+	registers that contain the operands. In this mode, the processor should output the result and status flags
+	obtained from ALU.
+	The processor should use an invalid bit as output to indicate the validity of the given opcode. For
+	example, if the input opcode is 110, then the value of invalid bit should be 1.
+	(b) Update the Verilog module to incorporate the input mechanism using the slide switches and push
+	buttons. The 3-bit opcode and the two 4-bit inputs should be obtained by using the slide switches and three
+	different push buttons. The fourth push button can be used to generate the register write enable signal.
+	(c) Write a constraint file to use sliding switches and three push buttons to input the 3-bit opcode and
+	two 4-bit binary numbers, and a push button to input the register write enable signal. Include constraints
+	to display the result of the ALU operation as a hexadecimal character on the LCD Display and use three of
+	the LEDs to indicate the CF, ZF and SF flags.
+	(e) Synthesize and implement your Verilog module to generate a configuration file and download the
+	configuration file to the FPGA kit. First use the opcode 100 to store some values in a few registers. Then
+	try different opcodes for the ALU operations and check the LCD screen and LED output to ensure that your
+	ALU is operating correctly
